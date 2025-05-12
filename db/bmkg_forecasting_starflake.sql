@@ -1,24 +1,44 @@
 -- 1. Create schema
 CREATE SCHEMA IF NOT EXISTS forecasting;
 
--- 2. Create dimension tables (Flattened)
+-- 2. Create dimension tables (No foreign keys)
 
--- Table: dim_location (Flattened)
-CREATE TABLE IF NOT EXISTS forecasting.dim_location (
-    location_id SERIAL PRIMARY KEY,
-    city_name VARCHAR(100) NOT NULL,
-    province_name VARCHAR(100) NOT NULL,
-    district_name VARCHAR(100) NOT NULL
+-- Table: dim_province
+CREATE TABLE IF NOT EXISTS forecasting.dim_province (
+    province_id SERIAL PRIMARY KEY,
+    province_name VARCHAR(100) UNIQUE NOT NULL
 );
 
--- Table: dim_weather_condition (Flattened)
+-- Table: dim_city
+CREATE TABLE IF NOT EXISTS forecasting.dim_city (
+    city_id SERIAL PRIMARY KEY,
+    city_name VARCHAR(100) NOT NULL,
+    province_name VARCHAR(100) NOT NULL
+);
+
+-- Table: dim_district
+CREATE TABLE IF NOT EXISTS forecasting.dim_district (
+    district_id SERIAL PRIMARY KEY,
+    district_name VARCHAR(100) NOT NULL,
+    city_name VARCHAR(100) NOT NULL
+);
+
+-- Table: dim_location
+CREATE TABLE IF NOT EXISTS forecasting.dim_location (
+    location_id SERIAL PRIMARY KEY,
+    district_name VARCHAR(100) NOT NULL,
+    city_name VARCHAR(100) NOT NULL,
+    province_name VARCHAR(100) NOT NULL
+);
+
+-- Table: dim_weather_condition
 CREATE TABLE IF NOT EXISTS forecasting.dim_weather_condition (
     weather_condition_id SERIAL PRIMARY KEY,
     condition_code VARCHAR(10) UNIQUE NOT NULL,
     description VARCHAR(100) NOT NULL
 );
 
--- Table: dim_time (Flattened)
+-- Table: dim_time
 CREATE TABLE IF NOT EXISTS forecasting.dim_time (
     time_id SERIAL PRIMARY KEY,
     forecast_datetime TIMESTAMP UNIQUE NOT NULL,
