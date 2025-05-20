@@ -9,13 +9,18 @@
     "seed:starflake": "NODE_ENV=starflake node db/seeders/starflake/index.js",
     "seed:snowflake": "NODE_ENV=snowflake node db/seeders/snowflake/index.js",
     "setup:starflake": "npm run create:starflake && npm run seed:starflake",
-    "setup:snowflake": "npm run create:snowflake && npm run seed:snowflake"
+    "setup:snowflake": "npm run create:snowflake && npm run seed:snowflake",
+    "get-locations": "node app/scripts/getLocations.js",
+    "generate-seeders": "node app/scripts/generateSeeders.js",
+    "seed:locations": "node db/seeders/starflake/runSeeders.js",
+    "seed:all": "npm run generate-seeders && npm run seed:locations"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "axios": "^1.6.7"
   }
 }

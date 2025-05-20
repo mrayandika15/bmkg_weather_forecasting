@@ -1,20 +1,14 @@
-const seedWeatherConditions = require("./weatherConditionSeeder");
-const seedLocation = require("./locationSeeder");
+const fs = require('fs');
+const path = require('path');
 
-async function runSeeders() {
-  try {
-    console.log("Starting seeding process...");
+// Get all seeder files
+const seederFiles = fs.readdirSync(__dirname)
+  .filter(file => file.endsWith('Seeder.js') && file !== 'index.js');
 
-    // Run seeders in sequence
-    await seedWeatherConditions();
-    await seedLocation();
+// Import and export all seeders
+const seeders = seederFiles.map(file => {
+  const seeder = require(`./${file}`);
+  return seeder;
+});
 
-    console.log("All seeders completed successfully!");
-    process.exit(0);
-  } catch (error) {
-    console.error("Error running seeders:", error);
-    process.exit(1);
-  }
-}
-
-runSeeders();
+module.exports = seeders;

@@ -1,0 +1,74 @@
+{
+  "locations": [
+    {
+      "kecamatan": "Bandung Wetan",
+      "kelurahan": "Cihapit",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.09.1001"
+    },
+    {
+      "kecamatan": "Bandung Wetan",
+      "kelurahan": "Taman Sari",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.09.1002"
+    },
+    {
+      "kecamatan": "Bandung Wetan",
+      "kelurahan": "Citarum",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.09.1003"
+    },
+    {
+      "kecamatan": "Antapani",
+      "kelurahan": "Antapani Kulon",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.20.1001"
+    },
+    {
+      "kecamatan": "Antapani",
+      "kelurahan": "Antapani Tengah",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.20.1004"
+    },
+    {
+      "kecamatan": "Antapani",
+      "kelurahan": "Antapani Kidul",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.20.1005"
+    },
+    {
+      "kecamatan": "Antapani",
+      "kelurahan": "Antapani Wetan",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.20.1006"
+    },
+    {
+      "kecamatan": "Lengkong",
+      "kelurahan": "Cijagra",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.13.1001"
+    },
+    {
+      "kecamatan": "Lengkong",
+      "kelurahan": "Lingkar Selatan",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.13.1002"
+    },
+    {
+      "kecamatan": "Lengkong",
+      "kelurahan": "Burangrang",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.13.1003"
+    },
+    {
+      "kecamatan": "Lengkong",
+      "kelurahan": "Paledang",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.13.1004"
+    },
+    {
+      "kecamatan": "Lengkong",
+      "kelurahan": "Turangga",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.13.1005"
+    },
+    {
+      "kecamatan": "Lengkong",
+      "kelurahan": "Malabar",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.13.1006"
+    },
+    {
+      "kecamatan": "Lengkong",
+      "kelurahan": "Cikawao",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.13.1007"
+    }
+  ]
+}
