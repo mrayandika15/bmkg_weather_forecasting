@@ -1,0 +1,21 @@
+{
+  "name": "bmkg_weather_forecasting",
+  "version": "1.0.0",
+  "description": "This project implements two different database schemas (Snowflake and Starflake) for storing BMKG (Badan Meteorologi, Klimatologi, dan Geofisika) weather forecasting data.",
+  "main": "index.js",
+  "scripts": {
+    "create:starflake": "psql -U admin -d bmkg_forecasting_starflake -f db/bmkg_forecasting_starflake.sql",
+    "create:snowflake": "psql -U admin -d bmkg_forecasting_snowflake -f db/bmkg_forecasting_snowflake.sql",
+    "seed:starflake": "NODE_ENV=starflake node db/seeders/starflake/index.js",
+    "seed:snowflake": "NODE_ENV=snowflake node db/seeders/snowflake/index.js",
+    "setup:starflake": "npm run create:starflake && npm run seed:starflake",
+    "setup:snowflake": "npm run create:snowflake && npm run seed:snowflake"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pg": "^8.11.3"
+  }
+}
