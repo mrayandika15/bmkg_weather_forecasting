@@ -69,6 +69,86 @@
       "kecamatan": "Lengkong",
       "kelurahan": "Cikawao",
       "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.13.1007"
+    },
+    {
+      "kecamatan": "Sukasari",
+      "kelurahan": "Sukarasa",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.01.1001"
+    },
+    {
+      "kecamatan": "Sukasari",
+      "kelurahan": "Gegerkalong",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.01.1002"
+    },
+    {
+      "kecamatan": "Sukasari",
+      "kelurahan": "Isola",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.01.1003"
+    },
+    {
+      "kecamatan": "Sukasari",
+      "kelurahan": "Sarijadi",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.01.1004"
+    },
+    {
+      "kecamatan": "Coblong",
+      "kelurahan": "Cipaganti",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.02.1001"
+    },
+    {
+      "kecamatan": "Coblong",
+      "kelurahan": "Lebak Gede",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.02.1002"
+    },
+    {
+      "kecamatan": "Coblong",
+      "kelurahan": "Sadang Serang",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.02.1003"
+    },
+    {
+      "kecamatan": "Coblong",
+      "kelurahan": "Dago",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.02.1004"
+    },
+    {
+      "kecamatan": "Coblong",
+      "kelurahan": "Sekeloa",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.02.1005"
+    },
+    {
+      "kecamatan": "Coblong",
+      "kelurahan": "Lebak Siliwangi",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.02.1006"
+    },
+    {
+      "kecamatan": "Babakan Ciparay",
+      "kelurahan": "Babakan Ciparay",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.03.1001"
+    },
+    {
+      "kecamatan": "Babakan Ciparay",
+      "kelurahan": "Babakan",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.03.1002"
+    },
+    {
+      "kecamatan": "Babakan Ciparay",
+      "kelurahan": "Sukahaji",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.03.1003"
+    },
+    {
+      "kecamatan": "Babakan Ciparay",
+      "kelurahan": "Margahayu Utara",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.03.1004"
+    },
+    {
+      "kecamatan": "Babakan Ciparay",
+      "kelurahan": "Margasuka",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.03.1005"
+    },
+    {
+      "kecamatan": "Babakan Ciparay",
+      "kelurahan": "Cirangrang",
+      "api_url": "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.73.03.1006"
     }
   ]
 }
