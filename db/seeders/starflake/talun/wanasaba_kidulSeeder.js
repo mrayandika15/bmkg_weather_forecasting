@@ -1,0 +1,42 @@
+const db = require("../../../config/database");
+
+const location = {
+  location_id: "32.09.14.2006", // Original adm4 code with dots
+  subdistrict_name: "Wanasaba Kidul",
+  district_name: "Talun",
+  city_name: "Cirebon",
+  province_name: "Jawa Barat",
+  latitude: -6.7671412644,
+  longitude: 108.4986443366,
+  timezone: "Asia/Jakarta",
+};
+
+async function seedLocation() {
+  try {
+    console.log("Seeding location Wanasaba Kidul...");
+
+    await db.query(
+      `INSERT INTO forecasting.dim_location 
+      (location_id, subdistrict_name, district_name, city_name, province_name, latitude, longitude, timezone) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      ON CONFLICT (location_id) DO NOTHING`,
+      [
+        location.location_id,
+        location.subdistrict_name,
+        location.district_name,
+        location.city_name,
+        location.province_name,
+        location.latitude,
+        location.longitude,
+        location.timezone,
+      ]
+    );
+
+    console.log("Location Wanasaba Kidul seeded successfully!");
+  } catch (error) {
+    console.error("Error seeding location Wanasaba Kidul:", error);
+    throw error;
+  }
+}
+
+module.exports = seedLocation;
