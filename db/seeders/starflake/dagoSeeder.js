@@ -1,13 +1,13 @@
 const db = require("../../config/database");
 
 const location = {
-  location_id: "32.73.02.1004", // Original adm4 code with dots
+  location_id: "32.01.20.2003", // Original adm4 code with dots
   subdistrict_name: "Dago",
-  district_name: "Coblong",
-  city_name: "Kota Bandung",
+  district_name: "Parung Panjang",
+  city_name: "Bogor",
   province_name: "Jawa Barat",
-  latitude: -6.8746450607,
-  longitude: 107.6157555289,
+  latitude: -6.4064830912,
+  longitude: 106.5848973593,
   timezone: "Asia/Jakarta",
 };
 

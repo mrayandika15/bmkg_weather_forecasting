@@ -1,13 +1,13 @@
 const db = require("../../config/database");
 
 const location = {
-  location_id: "32.73.03.1002", // Original adm4 code with dots
+  location_id: "32.02.29.2006", // Original adm4 code with dots
   subdistrict_name: "Babakan",
-  district_name: "Babakan Ciparay",
-  city_name: "Kota Bandung",
+  district_name: "Cisaat",
+  city_name: "Sukabumi",
   province_name: "Jawa Barat",
-  latitude: -6.9343633382,
-  longitude: 107.5754137324,
+  latitude: -6.9240376344,
+  longitude: 106.892750951,
   timezone: "Asia/Jakarta",
 };
 

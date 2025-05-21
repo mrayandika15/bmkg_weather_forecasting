@@ -1,13 +1,13 @@
 const db = require("../../config/database");
 
 const location = {
-  location_id: "32.73.01.1001", // Original adm4 code with dots
+  location_id: "32.01.36.2007", // Original adm4 code with dots
   subdistrict_name: "Sukarasa",
-  district_name: "Sukasari",
-  city_name: "Kota Bandung",
+  district_name: "Tanjungsari",
+  city_name: "Bogor",
   province_name: "Jawa Barat",
-  latitude: -6.8742274703,
-  longitude: 107.5853961716,
+  latitude: -6.5920097116,
+  longitude: 107.1060989584,
   timezone: "Asia/Jakarta",
 };
 
