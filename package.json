@@ -12,7 +12,7 @@
     "setup:snowflake": "npm run create:snowflake && npm run seed:snowflake",
     "get-locations": "node app/scripts/getLocations.js",
     "generate-seeders": "node app/scripts/generateSeeders.js",
-    "seed:locations": "node db/seeders/starflake/runSeeders.js",
+    "seed:locations": "node app/seeders.js",
     "seed:all": "npm run generate-seeders && npm run seed:locations"
   },
   "keywords": [],
