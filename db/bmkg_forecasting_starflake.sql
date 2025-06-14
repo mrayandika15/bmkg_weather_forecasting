@@ -20,11 +20,12 @@ CREATE TABLE IF NOT EXISTS forecasting.dim_location (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table: dim_weather_condition (Denormalized weather dimension)
-CREATE TABLE IF NOT EXISTS forecasting.dim_weather_condition (
-    weather_condition_id SERIAL PRIMARY KEY,
-    description_id VARCHAR(100) NOT NULL,
-    description_en VARCHAR(100) NOT NULL,
+-- Table: dim_weather (Denormalized weather dimension)
+CREATE TABLE IF NOT EXISTS forecasting.dim_weather (
+    weather_condition_id INT PRIMARY KEY,
+    weather_desc VARCHAR(100) NOT NULL,
+    weather_desc_en VARCHAR(100) NOT NULL,
+    image_url TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -53,7 +54,7 @@ CREATE TABLE IF NOT EXISTS forecasting.fact_weather_forecast (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (location_id) REFERENCES forecasting.dim_location(location_id),
-    FOREIGN KEY (weather_condition_id) REFERENCES forecasting.dim_weather_condition(weather_condition_id)
+    FOREIGN KEY (weather_condition_id) REFERENCES forecasting.dim_weather(weather_condition_id)
 );
 
 -- Create indexes for better query performance
@@ -62,6 +63,4 @@ CREATE INDEX idx_fact_weather_forecast_weather ON forecasting.fact_weather_forec
 CREATE INDEX idx_fact_weather_forecast_utc_datetime ON forecasting.fact_weather_forecast(utc_datetime);
 CREATE INDEX idx_fact_weather_forecast_wind_direction ON forecasting.fact_weather_forecast(wind_direction_degrees, wind_direction);
 CREATE INDEX idx_dim_location_coordinates ON forecasting.dim_location(latitude, longitude);
-
--- End of script
 

@@ -6,21 +6,30 @@
   "scripts": {
     "create:starflake": "psql -U admin -d bmkg_forecasting_starflake -f db/bmkg_forecasting_starflake.sql",
     "create:snowflake": "psql -U admin -d bmkg_forecasting_snowflake -f db/bmkg_forecasting_snowflake.sql",
-    "seed:starflake": "NODE_ENV=starflake node db/seeders/starflake/index.js",
-    "seed:snowflake": "NODE_ENV=snowflake node db/seeders/snowflake/index.js",
-    "setup:starflake": "npm run create:starflake && npm run seed:starflake",
-    "setup:snowflake": "npm run create:snowflake && npm run seed:snowflake",
+    "create:logging:db": "psql -U admin -d postgres -c 'CREATE DATABASE bmkg_error_logging;'",
+    "create:logging": "npm run create:logging:db && psql -U admin -d bmkg_error_logging -f db/bmkg_error_logging.sql",
+    "generate-seeders:starflake": "NODE_ENV=starflake node app/scripts/generateSeeders.js",
+    "generate-seeders:snowflake": "NODE_ENV=snowflake node app/scripts/generateSeeders.js",
+    "seed:starflake": "NODE_ENV=starflake node app/seeders.js",
+    "seed:snowflake": "NODE_ENV=snowflake node app/seeders.js",
+    "seed:all:starflake": "npm run generate-seeders:starflake && npm run seed:starflake",
+    "seed:all:snowflake": "npm run generate-seeders:snowflake && npm run seed:snowflake",
     "get-locations": "node app/scripts/getLocations.js",
-    "generate-seeders": "node app/scripts/generateSeeders.js",
-    "seed:locations": "node app/seeders.js",
-    "seed:all": "npm run generate-seeders && npm run seed:locations"
+    "get-weather": "node app/scripts/getWeather.js",
+    "get-all-data": "npm run get-locations && npm run get-weather",
+    "count:starflake": "node app/scripts/countRows.js",
+    "count:snowflake": "NODE_ENV=snowflake node app/scripts/countRows.js",
+    "drop:all": "psql -U admin -d postgres -c \"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname IN ('bmkg_forecasting_starflake', 'bmkg_forecasting_snowflake', 'bmkg_error_logging');\" && psql -U admin -d postgres -c 'DROP DATABASE IF EXISTS bmkg_forecasting_starflake;' && psql -U admin -d postgres -c 'DROP DATABASE IF EXISTS bmkg_forecasting_snowflake;' && psql -U admin -d postgres -c 'DROP DATABASE IF EXISTS bmkg_error_logging;'",
+    "create:all": "npm run drop:all && psql -U admin -d postgres -c 'CREATE DATABASE bmkg_forecasting_starflake;' && psql -U admin -d postgres -c 'CREATE DATABASE bmkg_forecasting_snowflake;' && psql -U admin -d postgres -c 'CREATE DATABASE bmkg_error_logging;' && npm run create:starflake && npm run create:snowflake && npm run create:logging",
+    "drop:logging": "psql -U admin -d bmkg_error_logging -c 'DROP SCHEMA IF EXISTS logging CASCADE;'",
+    "reset:logging": "npm run drop:logging && npm run create:logging"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "pg": "^8.11.3",
-    "axios": "^1.6.7"
+    "axios": "^1.6.7",
+    "dotenv": "^16.5.0",
+    "pg": "^8.16.0"
   }
 }

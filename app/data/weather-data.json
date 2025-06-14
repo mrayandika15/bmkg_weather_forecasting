@@ -1,0 +1,44 @@
+[
+  {
+    "weather_id": 3,
+    "weather_desc": "Berawan",
+    "weather_desc_en": "Mostly Cloudy",
+    "image_url": "https://api-apps.bmkg.go.id/storage/icon/cuaca/berawan-am.svg"
+  },
+  {
+    "weather_id": 2,
+    "weather_desc": "Cerah Berawan",
+    "weather_desc_en": "Partly Cloudy",
+    "image_url": "https://api-apps.bmkg.go.id/storage/icon/cuaca/cerah berawan-am.svg"
+  },
+  {
+    "weather_id": 1,
+    "weather_desc": "Cerah",
+    "weather_desc_en": "Sunny",
+    "image_url": "https://api-apps.bmkg.go.id/storage/icon/cuaca/cerah-pm.svg"
+  },
+  {
+    "weather_id": 61,
+    "weather_desc": "Hujan Ringan",
+    "weather_desc_en": "Light Rain",
+    "image_url": "https://api-apps.bmkg.go.id/storage/icon/cuaca/hujan ringan-am.svg"
+  },
+  {
+    "weather_id": 0,
+    "weather_desc": "Cerah",
+    "weather_desc_en": "Sunny",
+    "image_url": "https://api-apps.bmkg.go.id/storage/icon/cuaca/cerah-pm.svg"
+  },
+  {
+    "weather_id": 63,
+    "weather_desc": "Hujan Sedang",
+    "weather_desc_en": "Moderate Rain",
+    "image_url": "https://api-apps.bmkg.go.id/storage/icon/cuaca/hujan sedang-am.svg"
+  },
+  {
+    "weather_id": 10,
+    "weather_desc": "Udara Kabur",
+    "weather_desc_en": "Mist/Haze",
+    "image_url": "https://api-apps.bmkg.go.id/storage/icon/cuaca/udara kabur.svg"
+  }
+]
