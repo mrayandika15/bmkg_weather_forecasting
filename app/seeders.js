@@ -1,27 +1,23 @@
 const fs = require("fs");
 const path = require("path");
 
-// Get all seeder files from the starflake directory
-const seedersDir = path.join(__dirname, "../db/seeders/starflake");
-const seederFiles = fs
-  .readdirSync(seedersDir)
-  .filter((file) => file.endsWith("Seeder.js") && file !== "index.js");
+// Determine which schema to use based on NODE_ENV
+const schema = process.env.NODE_ENV || "starflake";
+const seedersDir = path.join(__dirname, `../db/seeders/${schema}`);
 
-// Import all seeders
-const seeders = seederFiles.map((file) => {
-  const seeder = require(path.join(seedersDir, file));
-  return seeder;
-});
+// Import all seeders from the index file
+const seeders = require(path.join(seedersDir, "index.js"));
 
 // Function to run all seeders
 async function runSeeders() {
-  console.log("Starting to seed locations...");
+  console.log(`Starting to seed for ${schema} schema...`);
 
   for (const seeder of seeders) {
     try {
       await seeder();
     } catch (error) {
       console.error("Error running seeder:", error);
+      process.exit(1); // Exit with error code if a seeder fails
     }
   }
 

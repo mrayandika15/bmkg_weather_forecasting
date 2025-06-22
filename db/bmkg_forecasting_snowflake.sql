@@ -8,7 +8,8 @@ CREATE SCHEMA IF NOT EXISTS forecasting;
 
 -- Table: dim_province
 CREATE TABLE IF NOT EXISTS forecasting.dim_province (
-    province_id VARCHAR(10) PRIMARY KEY,  -- Using adm1 code as ID
+    province_id SERIAL PRIMARY KEY,
+    province_code VARCHAR(10) UNIQUE NOT NULL,
     province_name VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -16,9 +17,10 @@ CREATE TABLE IF NOT EXISTS forecasting.dim_province (
 
 -- Table: dim_city
 CREATE TABLE IF NOT EXISTS forecasting.dim_city (
-    city_id VARCHAR(10) PRIMARY KEY,  -- Using adm2 code as ID
+    city_id SERIAL PRIMARY KEY,
+    city_code VARCHAR(10) UNIQUE NOT NULL,
     city_name VARCHAR(100) NOT NULL,
-    province_id VARCHAR(10) NOT NULL,
+    province_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (province_id) REFERENCES forecasting.dim_province(province_id)
@@ -26,9 +28,10 @@ CREATE TABLE IF NOT EXISTS forecasting.dim_city (
 
 -- Table: dim_district
 CREATE TABLE IF NOT EXISTS forecasting.dim_district (
-    district_id VARCHAR(10) PRIMARY KEY,  -- Using adm3 code as ID
+    district_id SERIAL PRIMARY KEY,
+    district_code VARCHAR(10) UNIQUE NOT NULL,
     district_name VARCHAR(100) NOT NULL,
-    city_id VARCHAR(10) NOT NULL,
+    city_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (city_id) REFERENCES forecasting.dim_city(city_id)
@@ -36,9 +39,10 @@ CREATE TABLE IF NOT EXISTS forecasting.dim_district (
 
 -- Table: dim_subdistrict
 CREATE TABLE IF NOT EXISTS forecasting.dim_subdistrict (
-    subdistrict_id VARCHAR(10) PRIMARY KEY,  -- Using adm4 code as ID
+    subdistrict_id SERIAL PRIMARY KEY,
+    subdistrict_code VARCHAR(10) UNIQUE NOT NULL,
     subdistrict_name VARCHAR(100) NOT NULL,
-    district_id VARCHAR(10) NOT NULL,
+    district_id INT NOT NULL,
     latitude DECIMAL(10,8) NOT NULL,
     longitude DECIMAL(11,8) NOT NULL,
     timezone VARCHAR(50) NOT NULL,
@@ -62,7 +66,7 @@ CREATE TABLE IF NOT EXISTS forecasting.dim_weather (
 -- Table: fact_weather_forecast
 CREATE TABLE IF NOT EXISTS forecasting.fact_weather_forecast (
     forecast_id SERIAL PRIMARY KEY,
-    subdistrict_id VARCHAR(10) NOT NULL,
+    subdistrict_id INT NOT NULL,
     utc_datetime TIMESTAMP NOT NULL,
     local_datetime TIMESTAMP NOT NULL,
     time_index VARCHAR(10) NOT NULL,
@@ -90,4 +94,8 @@ CREATE INDEX idx_fact_weather_forecast_weather ON forecasting.fact_weather_forec
 CREATE INDEX idx_fact_weather_forecast_utc_datetime ON forecasting.fact_weather_forecast(utc_datetime);
 CREATE INDEX idx_fact_weather_forecast_wind_direction ON forecasting.fact_weather_forecast(wind_direction_degrees, wind_direction);
 CREATE INDEX idx_dim_subdistrict_coordinates ON forecasting.dim_subdistrict(latitude, longitude);
+CREATE INDEX idx_dim_province_code ON forecasting.dim_province(province_code);
+CREATE INDEX idx_dim_city_code ON forecasting.dim_city(city_code);
+CREATE INDEX idx_dim_district_code ON forecasting.dim_district(district_code);
+CREATE INDEX idx_dim_subdistrict_code ON forecasting.dim_subdistrict(subdistrict_code);
 
