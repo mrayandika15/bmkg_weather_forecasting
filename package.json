@@ -6,8 +6,7 @@
   "scripts": {
     "create:starflake": "(psql -U admin -d postgres -c 'CREATE DATABASE bmkg_forecasting_starflake;') || true && psql -U admin -d bmkg_forecasting_starflake -f db/bmkg_forecasting_starflake.sql",
     "create:snowflake": "(psql -U admin -d postgres -c 'CREATE DATABASE bmkg_forecasting_snowflake;') || true && psql -U admin -d bmkg_forecasting_snowflake -f db/bmkg_forecasting_snowflake.sql",
-    "create:logging:db": "psql -U admin -d postgres -c 'CREATE DATABASE bmkg_error_logging;'",
-    "create:logging": "npm run create:logging:db && psql -U admin -d bmkg_error_logging -f db/bmkg_error_logging.sql",
+    "create:logging": "(psql -U admin -d postgres -c 'CREATE DATABASE bmkg_error_logging;') || true && psql -U admin -d bmkg_error_logging -f db/bmkg_error_logging.sql",
     "generate-seeders:starflake": "NODE_ENV=starflake node app/scripts/generateSeeders.js",
     "generate-seeders:snowflake": "NODE_ENV=snowflake node app/scripts/generateSeeders.js",
     "seed:starflake": "NODE_ENV=starflake node app/seeders.js",

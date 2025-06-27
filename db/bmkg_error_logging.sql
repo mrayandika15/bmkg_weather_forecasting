@@ -6,10 +6,10 @@ CREATE SCHEMA IF NOT EXISTS logging;
 
 -- 3. Create error log table
 CREATE TABLE IF NOT EXISTS logging.error_log (
-    error_id SERIAL PRIMARY KEY,
+    error_id VARCHAR(36) PRIMARY KEY,
     error_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     error_message TEXT NOT NULL,
-    error_details JSONB,
+    error_details VARCHAR(256),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
