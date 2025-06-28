@@ -1,9 +1,4 @@
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Legend } from "recharts";
+import ETLChart from "@/components/ETLChart";
 
 const etlData = [
   { batch: "Batch 1", dataIn: 1200, dataOut: 1100 },
@@ -19,29 +14,10 @@ const chartConfig = {
 
 export default function SnowflakeETLChart() {
   return (
-    <div className="mt-8">
-      <h3 className="font-semibold mb-2">ETL Data In/Out (Snowflake)</h3>
-      <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-        <BarChart data={etlData} width={300} height={200}>
-          <CartesianGrid vertical={false} />
-          <XAxis dataKey="batch" />
-          <YAxis />
-          <Legend />
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar
-            dataKey="dataIn"
-            fill="hsl(var(--chart-1))"
-            radius={4}
-            name="Data In"
-          />
-          <Bar
-            dataKey="dataOut"
-            fill="hsl(var(--chart-2))"
-            radius={4}
-            name="Data Out"
-          />
-        </BarChart>
-      </ChartContainer>
-    </div>
+    <ETLChart
+      etlData={etlData}
+      chartConfig={chartConfig}
+      title="ETL Data In/Out (Snowflake)"
+    />
   );
 }
