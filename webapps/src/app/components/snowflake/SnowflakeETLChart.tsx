@@ -1,4 +1,4 @@
-import ETLChart from "@/components/ETLChart";
+import ETLChart from "@/components/charts/ETLChart";
 
 const etlData = [
   { batch: "Batch 1", dataIn: 1200, dataOut: 1100 },
@@ -15,9 +15,10 @@ const chartConfig = {
 export default function SnowflakeETLChart() {
   return (
     <ETLChart
+      title="Snowflake ETL Data In/Out"
+      description="A comprehensive view of the Snowflake schema's ETL data in/out, showing the distribution of data in and out of the Snowflake schema."
       etlData={etlData}
       chartConfig={chartConfig}
-      title="ETL Data In/Out (Snowflake)"
     />
   );
 }

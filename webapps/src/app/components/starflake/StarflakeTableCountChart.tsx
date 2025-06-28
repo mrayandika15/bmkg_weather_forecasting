@@ -1,4 +1,4 @@
-import TableCountChart from "@/components/TableCountChart";
+import TableCountChart from "@/components/charts/TableCountChart";
 
 const chartData = [
   { label: "Dimension Tables", value: 2 },
@@ -10,5 +10,12 @@ const chartConfig = {
 };
 
 export default function StarflakeTableCountChart() {
-  return <TableCountChart chartData={chartData} chartConfig={chartConfig} />;
+  return (
+    <TableCountChart
+      title="Starflake Table Count"
+      description="A comprehensive view of the Starflake schema's table structure, showing the distribution between dimension and fact tables that form the foundation of this normalized data model."
+      chartData={chartData}
+      chartConfig={chartConfig}
+    />
+  );
 }

@@ -1,4 +1,4 @@
-import ETLChart from "@/components/ETLChart";
+import ETLChart from "@/components/charts/ETLChart";
 
 const etlData = [
   { batch: "Batch 1", dataIn: 1000, dataOut: 950 },
@@ -15,9 +15,10 @@ const chartConfig = {
 export default function StarflakeETLChart() {
   return (
     <ETLChart
+      title="Starflake ETL Data In/Out"
+      description="A comprehensive view of the Starflake schema's ETL data in/out, showing the distribution of data in and out of the Starflake schema."
       etlData={etlData}
       chartConfig={chartConfig}
-      title="ETL Data In/Out (Starflake)"
     />
   );
 }

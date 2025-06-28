@@ -4,21 +4,23 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import ChartCard from "@/components/charts/ChartCard";
 
 interface ETLChartProps {
   etlData: { batch: string; dataIn: number; dataOut: number }[];
   chartConfig: Record<string, { label: string; color: string }>;
-  title: string;
+  title?: string;
+  description?: string;
 }
 
 export default function ETLChart({
   etlData,
   chartConfig,
-  title,
+  title = "ETL Data In/Out",
+  description,
 }: ETLChartProps) {
   return (
-    <div className="mt-8">
-      <h3 className="font-semibold mb-2">{title}</h3>
+    <ChartCard title={title} description={description}>
       <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
         <BarChart data={etlData} width={300} height={200}>
           <CartesianGrid vertical={false} />
@@ -40,6 +42,6 @@ export default function ETLChart({
           />
         </BarChart>
       </ChartContainer>
-    </div>
+    </ChartCard>
   );
 }

@@ -1,10 +1,13 @@
 "use client";
 
+import ChartCard from "@/components/charts/ChartCard";
+
 interface QueryComplexityChartProps {
   value: number; // 0-100
   label: string;
   description: string;
   color: string;
+  title?: string;
 }
 
 export default function QueryComplexityChart({
@@ -12,10 +15,10 @@ export default function QueryComplexityChart({
   label,
   description,
   color,
+  title = "Query Complexity",
 }: QueryComplexityChartProps) {
   return (
-    <div className="mt-8">
-      <h3 className="font-semibold mb-2">Query Complexity</h3>
+    <ChartCard title={title} description={description}>
       <div className="w-full bg-zinc-200 dark:bg-zinc-800 rounded h-5 relative">
         <div
           className="h-5 rounded transition-all"
@@ -25,7 +28,6 @@ export default function QueryComplexityChart({
           {label}
         </span>
       </div>
-      <div className="text-sm text-muted-foreground mt-1">{description}</div>
-    </div>
+    </ChartCard>
   );
 }

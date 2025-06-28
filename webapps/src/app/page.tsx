@@ -4,60 +4,49 @@ import SnowflakeETLChart from "@/app/components/snowflake/SnowflakeETLChart";
 import SnowflakeQueryComplexityChart from "@/app/components/snowflake/SnowflakeQueryComplexity";
 import SnowflakeStorageChart from "@/app/components/snowflake/SnowflakeStorageUsage";
 import SnowflakeTableCountChart from "@/app/components/snowflake/SnowflakeTableCount";
-import StarflakeQueryComplexityChart from "@/app/components/starflake/StarflakeQueryComplexityChart";
 import StarflakeETLChart from "@/app/components/starflake/StarflakeETLChart";
+import StarflakeQueryComplexityChart from "@/app/components/starflake/StarflakeQueryComplexityChart";
 import StarflakeStorageChart from "@/app/components/starflake/StarflakeStorageUsageChart";
 import StarflakeTableCountChart from "@/app/components/starflake/StarflakeTableCountChart";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-const summarySnowflake = {
-  tables: 5,
-  description: "Highly normalized, more tables, more joins.",
-};
-
-const summaryStarflake = {
-  tables: 10,
-  description: "Denormalized, fewer tables, fewer joins.",
-};
 
 export default function Home() {
   return (
     <>
-      <Card>
-        <CardHeader>
-          <CardTitle>Snowflake Schema</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold mb-2">
-            {summarySnowflake.tables} Tables
+      {/* Snowflake Section */}
+      <div className="flex flex-col w-full">
+        <div className="flex flex-col gap-2 w-full px-8 py-4">
+          <div id="table-count">
+            <SnowflakeTableCountChart />
           </div>
-          <div className="text-muted-foreground mb-4">
-            {summarySnowflake.description}
+          <div id="data-track">
+            <SnowflakeETLChart />
           </div>
-          <SnowflakeTableCountChart />
-          <SnowflakeETLChart />
-          <SnowflakeStorageChart />
-          <SnowflakeQueryComplexityChart />
-        </CardContent>
-      </Card>
+          <div id="storage-usage">
+            <SnowflakeStorageChart />
+          </div>
+          <div id="query-complexity">
+            <SnowflakeQueryComplexityChart />
+          </div>
+        </div>
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Starflake Schema</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold mb-2">
-            {summaryStarflake.tables} Tables
+      {/* Starflake Section */}
+      <div className="flex flex-col w-full">
+        <div className="flex flex-col gap-2 w-full px-8 py-4">
+          <div id="starflake-table-count">
+            <StarflakeTableCountChart />
           </div>
-          <div className="text-muted-foreground mb-4">
-            {summaryStarflake.description}
+          <div id="starflake-data-track">
+            <StarflakeETLChart />
           </div>
-          <StarflakeTableCountChart />
-          <StarflakeETLChart />
-          <StarflakeStorageChart />
-          <StarflakeQueryComplexityChart />
-        </CardContent>
-      </Card>
+          <div id="starflake-storage-usage">
+            <StarflakeStorageChart />
+          </div>
+          <div id="starflake-query-complexity">
+            <StarflakeQueryComplexityChart />
+          </div>
+        </div>
+      </div>
     </>
   );
 }
