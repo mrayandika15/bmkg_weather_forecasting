@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import ETLChart from "@/components/charts/ETLChart";
+import * as React from "react";
 
 function formatDate(dateString: string) {
   const date = new Date(dateString);
@@ -11,14 +12,25 @@ function formatDate(dateString: string) {
 }
 
 export default function SnowflakeETLChart() {
+  const [dateRange, setDateRange] = React.useState<{
+    from: Date | undefined;
+    to: Date | undefined;
+  }>({ from: undefined, to: undefined });
+
   const {
     data: etlData = [],
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["snowflake-etl"],
+    queryKey: ["snowflake-etl", dateRange],
     queryFn: async () => {
-      const res = await fetch("/api/snowflake-etl");
+      let url = "/api/snowflake-etl";
+      if (dateRange.from && dateRange.to) {
+        const startDate = dateRange.from.toISOString().slice(0, 10);
+        const endDate = dateRange.to.toISOString().slice(0, 10);
+        url += `?startDate=${startDate}&endDate=${endDate}`;
+      }
+      const res = await fetch(url);
       if (!res.ok) throw new Error("Failed to fetch ETL data");
       return res.json();
     },
@@ -46,6 +58,8 @@ export default function SnowflakeETLChart() {
       etlData={normalizedData}
       chartConfig={chartConfig}
       isLoading={isLoading}
+      dateRange={dateRange}
+      onDateRangeChange={setDateRange}
     />
   );
 }

@@ -6,6 +6,13 @@ import {
 } from "@/components/ui/chart";
 import ChartCard from "@/components/charts/ChartCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import { DateRangePicker } from "@/components/DateRangePicker";
+import * as React from "react";
+
+interface DateRange {
+  from: Date | undefined;
+  to: Date | undefined;
+}
 
 interface ETLChartProps {
   etlData: { batch: string; dataIn: number; dataOut?: number }[];
@@ -13,6 +20,8 @@ interface ETLChartProps {
   title?: string;
   description?: string;
   isLoading?: boolean;
+  dateRange?: DateRange;
+  onDateRangeChange?: (range: DateRange) => void;
 }
 
 export default function ETLChart({
@@ -21,10 +30,23 @@ export default function ETLChart({
   title = "ETL Data In/Out",
   description,
   isLoading = false,
+  dateRange,
+  onDateRangeChange,
 }: ETLChartProps) {
+  const showDateRange = dateRange && onDateRangeChange;
   if (isLoading) {
     return (
       <ChartCard title={title} description={description}>
+        {showDateRange && (
+          <div className="mb-4 flex flex-col gap-2">
+            <span className="text-xs font-medium text-muted-foreground mb-1">
+              Filter By Date Range
+            </span>
+            <div className="flex items-center gap-4">
+              <DateRangePicker value={dateRange} onChange={onDateRangeChange} />
+            </div>
+          </div>
+        )}
         <div className="flex flex-col gap-4 w-full min-h-[200px] justify-center items-center">
           <Skeleton className="w-[200px] h-[32px] rounded-full mb-4" />
           <Skeleton className="w-full h-[120px] rounded-lg" />
@@ -34,6 +56,16 @@ export default function ETLChart({
   }
   return (
     <ChartCard title={title} description={description}>
+      {showDateRange && (
+        <div className="mb-4 flex flex-col gap-2">
+          <span className="text-xs font-medium text-muted-foreground mb-1">
+            Filter By Date Range
+          </span>
+          <div className="flex items-center gap-4">
+            <DateRangePicker value={dateRange} onChange={onDateRangeChange} />
+          </div>
+        </div>
+      )}
       <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
         <BarChart data={etlData} width={300} height={200}>
           <CartesianGrid vertical={false} />

@@ -7,6 +7,7 @@ import {
 import { ChartContainer } from "@/components/ui/chart";
 import ChartCard from "@/components/charts/ChartCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import ExplanationCard from "@/components/explanation-card";
 
 interface StorageUsageChartProps {
   storageData: { name: string; value: number }[];
@@ -94,6 +95,28 @@ export default function StorageUsageChart({
           </ResponsiveContainer>
         </ChartContainer>
       </div>
+      <ExplanationCard title="What does storage usage mean?">
+        Storage usage in data warehousing refers to the total amount of physical
+        disk space consumed by database objects, such as tables, indexes, and
+        materialized views, within a schema or database. According to academic
+        literature (see e.g., Inmon, 2005; Kimball & Ross, 2013), monitoring
+        storage usage is essential for capacity planning, performance
+        optimization, and cost management in large-scale analytical systems.
+        <br />
+        <br />
+        High storage usage can indicate the presence of large fact tables,
+        historical data retention, or suboptimal data modeling (e.g., lack of
+        normalization or excessive denormalization). Regularly tracking storage
+        consumption helps database administrators and data engineers identify
+        growth trends, optimize storage allocation, and implement data lifecycle
+        management strategies, such as partitioning, archiving, or purging old
+        data.
+        <br />
+        <br />
+        Understanding storage usage is also critical for ensuring that the
+        system remains performant and cost-effective as data volumes grow over
+        time.
+      </ExplanationCard>
     </ChartCard>
   );
 }
