@@ -18,7 +18,7 @@ import {
   IconSettings,
   IconUsers,
 } from "@tabler/icons-react";
-import { Table, BarChart, HardDrive, Settings2 } from "lucide-react";
+import { Table, BarChart, HardDrive, Settings2, Gauge } from "lucide-react";
 
 import { NavDocuments } from "@/components/nav-documents";
 import { NavMain } from "@/components/nav-main";
@@ -69,6 +69,12 @@ const dashboardItems = [
     icon: Settings2,
     url: "#query-complexity",
     sectionId: "query-complexity",
+  },
+  {
+    title: "Query Performance",
+    icon: Gauge,
+    url: "#query-performance",
+    sectionId: "query-performance",
   },
 ];
 

@@ -8,6 +8,8 @@ import StarflakeETLChart from "@/app/components/starflake/StarflakeETLChart";
 import StarflakeQueryComplexityChart from "@/app/components/starflake/StarflakeQueryComplexityChart";
 import StarflakeStorageChart from "@/app/components/starflake/StarflakeStorageUsageChart";
 import StarflakeTableCountChart from "@/app/components/starflake/StarflakeTableCountChart";
+import SnowflakeQueryPerformance from "@/app/components/snowflake/SnowflakeQueryPerformance";
+import StarflakeQueryPerformance from "@/app/components/starflake/StarflakeQueryPerformance";
 
 export default function Home() {
   return (
@@ -27,6 +29,9 @@ export default function Home() {
           <div id="query-complexity">
             <SnowflakeQueryComplexityChart />
           </div>
+          <div id="query-performance">
+            <SnowflakeQueryPerformance />
+          </div>
         </div>
       </div>
 
@@ -44,6 +49,9 @@ export default function Home() {
           </div>
           <div id="starflake-query-complexity">
             <StarflakeQueryComplexityChart />
+          </div>
+          <div id="starflake-query-performance">
+            <StarflakeQueryPerformance />
           </div>
         </div>
       </div>
