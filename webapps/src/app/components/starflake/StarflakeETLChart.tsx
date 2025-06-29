@@ -1,24 +1,65 @@
+import { useQuery } from "@tanstack/react-query";
 import ETLChart from "@/components/charts/ETLChart";
+import * as React from "react";
 
-const etlData = [
-  { batch: "Batch 1", dataIn: 1000, dataOut: 950 },
-  { batch: "Batch 2", dataIn: 1100, dataOut: 1050 },
-  { batch: "Batch 3", dataIn: 1200, dataOut: 1180 },
-  { batch: "Batch 4", dataIn: 900, dataOut: 880 },
-];
-
-const chartConfig = {
-  dataIn: { label: "Data In", color: "hsl(var(--chart-2))" },
-  dataOut: { label: "Data Out", color: "hsl(var(--chart-3))" },
-};
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
 export default function StarflakeETLChart() {
+  const [dateRange, setDateRange] = React.useState<{
+    from: Date | undefined;
+    to: Date | undefined;
+  }>({ from: undefined, to: undefined });
+
+  const {
+    data: etlData = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["starflake-etl", dateRange],
+    queryFn: async () => {
+      let url = "/api/starflake-etl";
+      if (dateRange.from && dateRange.to) {
+        const startDate = dateRange.from.toISOString().slice(0, 10);
+        const endDate = dateRange.to.toISOString().slice(0, 10);
+        url += `?startDate=${startDate}&endDate=${endDate}`;
+      }
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Failed to fetch ETL data");
+      return res.json();
+    },
+  });
+
+  // Normalize and format the data for the chart
+  const normalizedData = etlData.map((row: any) => ({
+    batch: formatDate(
+      typeof row.batch === "string" ? row.batch : String(row.batch)
+    ),
+    dataIn: Number(row.datain ?? row.dataIn),
+  }));
+
+  const chartConfig = {
+    dataIn: { label: "Data In", color: "hsl(var(--chart-2))" },
+    // dataOut: { label: "Data Out", color: "hsl(var(--chart-3))" }, // for future use
+  };
+
+  if (isError) return <div>Failed to load ETL data.</div>;
+
   return (
     <ETLChart
-      title="Starflake ETL Data In/Out"
-      description="A comprehensive view of the Starflake schema's ETL data in/out, showing the distribution of data in and out of the Starflake schema."
-      etlData={etlData}
+      title="Starflake Data Intake"
+      description="A daily summary of data intake into the fact_weather_forecast table."
+      etlData={normalizedData}
       chartConfig={chartConfig}
+      isLoading={isLoading}
+      dateRange={dateRange}
+      onDateRangeChange={setDateRange}
     />
   );
 }
