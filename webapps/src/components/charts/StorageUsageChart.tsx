@@ -6,6 +6,7 @@ import {
 } from "recharts";
 import { ChartContainer } from "@/components/ui/chart";
 import ChartCard from "@/components/charts/ChartCard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface StorageUsageChartProps {
   storageData: { name: string; value: number }[];
@@ -14,6 +15,7 @@ interface StorageUsageChartProps {
   max?: number;
   title?: string;
   description?: string;
+  isLoading?: boolean;
 }
 
 export default function StorageUsageChart({
@@ -23,7 +25,18 @@ export default function StorageUsageChart({
   max = 200,
   title = "Storage Usage",
   description,
+  isLoading = false,
 }: StorageUsageChartProps) {
+  if (isLoading) {
+    return (
+      <ChartCard title={title} description={description}>
+        <div className="flex flex-col gap-4 w-full min-h-[200px] justify-center items-center">
+          <Skeleton className="w-[200px] h-[32px] rounded-full mb-4" />
+          <Skeleton className="w-full h-[120px] rounded-lg" />
+        </div>
+      </ChartCard>
+    );
+  }
   const value = storageData[0]?.value || 0;
   const percent = Math.round((value / max) * 100);
   const color = chartConfig.value.color;
@@ -39,8 +52,8 @@ export default function StorageUsageChart({
             <RadialBarChart
               cx="50%"
               cy="50%"
-              innerRadius="65%"
-              outerRadius="90%"
+              innerRadius="70%"
+              outerRadius="60%"
               barSize={18}
               data={[{ name: label, value: percent }]}
               startAngle={225}

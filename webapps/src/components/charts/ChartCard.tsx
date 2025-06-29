@@ -19,7 +19,7 @@ export default function ChartCard({
   children,
 }: ChartCardProps) {
   return (
-    <Card>
+    <Card className="relative">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}

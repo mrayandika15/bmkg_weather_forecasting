@@ -4,6 +4,7 @@ import "./globals.css";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { QueryProvider } from "@/lib/QueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,20 +31,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SidebarProvider
-          style={
-            {
-              "--sidebar-width": "calc(var(--spacing) * 72)",
-              "--header-height": "calc(var(--spacing) * 12)",
-            } as React.CSSProperties
-          }
-        >
-          <AppSidebar variant="sidebar" />
-          <SidebarInset>
-            <SiteHeader />
-            <div className="grid grid-cols-2">{children}</div>
-          </SidebarInset>
-        </SidebarProvider>
+        <QueryProvider>
+          <SidebarProvider
+            style={
+              {
+                "--sidebar-width": "calc(var(--spacing) * 72)",
+                "--header-height": "calc(var(--spacing) * 12)",
+              } as React.CSSProperties
+            }
+          >
+            <AppSidebar variant="sidebar" />
+            <SidebarInset>
+              <SiteHeader />
+              <div className="grid grid-cols-2">{children}</div>
+            </SidebarInset>
+          </SidebarProvider>
+        </QueryProvider>
       </body>
     </html>
   );
