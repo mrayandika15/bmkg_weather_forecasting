@@ -1,40 +1,28 @@
 "use client";
 
-import * as React from "react";
 import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react";
-import { Table, BarChart, HardDrive, Settings2, Gauge } from "lucide-react";
+  BarChart,
+  Gauge,
+  HardDrive,
+  Settings2,
+  Share2,
+  Table,
+  FlaskConical,
+} from "lucide-react";
+import * as React from "react";
 
-import { NavDocuments } from "@/components/nav-documents";
-import { NavMain } from "@/components/nav-main";
-import { NavSecondary } from "@/components/nav-secondary";
 import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarHeader,
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
-  SidebarMenuItem,
   SidebarMenuButton,
+  SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
 const data = {
@@ -71,10 +59,23 @@ const dashboardItems = [
     sectionId: "query-complexity",
   },
   {
+    title: "Join Depth",
+    icon: Share2,
+    url: "#join-depth",
+    sectionId: "join-depth",
+  },
+
+  {
     title: "Query Performance",
     icon: Gauge,
     url: "#query-performance",
     sectionId: "query-performance",
+  },
+  {
+    title: "Simulation",
+    icon: FlaskConical,
+    url: "#simulation",
+    sectionId: "simulation",
   },
 ];
 

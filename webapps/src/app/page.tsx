@@ -10,6 +10,10 @@ import StarflakeStorageChart from "@/app/components/starflake/StarflakeStorageUs
 import StarflakeTableCountChart from "@/app/components/starflake/StarflakeTableCountChart";
 import SnowflakeQueryPerformance from "@/app/components/snowflake/SnowflakeQueryPerformance";
 import StarflakeQueryPerformance from "@/app/components/starflake/StarflakeQueryPerformance";
+import SnowflakeJoinDepthChart from "@/app/components/snowflake/SnowflakeJoinDepthChart";
+import StarflakeJoinDepthChart from "@/app/components/starflake/StarflakeJoinDepthChart";
+import SnowflakeSimulationChart from "@/app/components/snowflake/SnowflakeSimulationChart";
+import StarflakeSimulationChart from "@/app/components/starflake/StarflakeSimulationChart";
 
 export default function Home() {
   return (
@@ -29,8 +33,14 @@ export default function Home() {
           <div id="query-complexity">
             <SnowflakeQueryComplexityChart />
           </div>
+          <div id="join-depth">
+            <SnowflakeJoinDepthChart />
+          </div>
           <div id="query-performance">
             <SnowflakeQueryPerformance />
+          </div>
+          <div id="simulation">
+            <SnowflakeSimulationChart />
           </div>
         </div>
       </div>
@@ -50,8 +60,14 @@ export default function Home() {
           <div id="starflake-query-complexity">
             <StarflakeQueryComplexityChart />
           </div>
+          <div id="starflake-join-depth">
+            <StarflakeJoinDepthChart />
+          </div>
           <div id="starflake-query-performance">
             <StarflakeQueryPerformance />
+          </div>
+          <div id="starflake-simulation">
+            <StarflakeSimulationChart />
           </div>
         </div>
       </div>
