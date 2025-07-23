@@ -4,7 +4,7 @@ const path = require("path");
 // Read the processed locations
 const processedLocationsPath = path.join(
   __dirname,
-  "../data/processed_locations.json"
+  "../data/processed_locations_bandung.json"
 );
 const processedLocations = JSON.parse(
   fs.readFileSync(processedLocationsPath, "utf8")
@@ -16,7 +16,7 @@ const weatherData = JSON.parse(fs.readFileSync(weatherDataPath, "utf8"));
 
 // Determine which schema to use based on NODE_ENV
 const schema = process.env.NODE_ENV || "starflake";
-const seedersDir = path.join(__dirname, `../../db/seeders/${schema}`);
+const seedersDir = path.join(__dirname, `../../db/seeders/bandung_${schema}`);
 fs.mkdirSync(seedersDir, { recursive: true });
 
 // Get absolute path to database config

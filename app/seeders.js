@@ -3,14 +3,20 @@ const path = require("path");
 
 // Determine which schema to use based on NODE_ENV
 const schema = process.env.NODE_ENV || "starflake";
-const seedersDir = path.join(__dirname, `../db/seeders/${schema}`);
+// Allow overriding the seeders directory via command-line argument
+const customSeedersDir = process.argv[2];
+const seedersDir = customSeedersDir
+  ? path.isAbsolute(customSeedersDir)
+    ? customSeedersDir
+    : path.join(__dirname, "../", customSeedersDir)
+  : path.join(__dirname, `../db/seeders/${schema}`);
 
 // Import all seeders from the index file
 const seeders = require(path.join(seedersDir, "index.js"));
 
 // Function to run all seeders
 async function runSeeders() {
-  console.log(`Starting to seed for ${schema} schema...`);
+  console.log(`Starting to seed for ${schema} schema from ${seedersDir}...`);
 
   for (const seeder of seeders) {
     try {
