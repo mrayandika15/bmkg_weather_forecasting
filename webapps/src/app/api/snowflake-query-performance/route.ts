@@ -25,7 +25,7 @@ export async function GET() {
           w.weather_desc_en,
           s.subdistrict_name,
           d.district_name,
-          c.city_name,
+            c.city_name,
           p.province_name,
           s.latitude,
           s.longitude,

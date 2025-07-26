@@ -65,3 +65,63 @@ Dimana:
 6. Tahapan ini dapat diterapkan baik pada model snowflake maupun starflake, dengan menyesuaikan struktur tabel dan kebutuhan analisis pada masing-masing model.
 
 Dengan menerapkan teori dan rumus ini, sistem basis data pada kedua model (snowflake dan starflake) dapat memastikan bahwa proses indexing dan table partition dilakukan secara optimal, sehingga performa query dan efisiensi pengelolaan data dapat tercapai secara maksimal.
+
+---
+
+# **Subquery and Indexing**
+
+## **Penjelasan Akademis**
+
+Subquery and Indexing adalah teknik optimasi yang menggabungkan penggunaan subquery dengan strategi indexing yang tepat untuk meningkatkan performa query. Subquery adalah query yang bersarang di dalam query utama, yang dapat digunakan dalam klausa WHERE, FROM, atau SELECT. Kombinasi subquery dengan indexing yang optimal dapat secara signifikan mengurangi waktu eksekusi query, terutama pada operasi yang melibatkan multiple table joins dan filtering yang kompleks.
+
+Teknik ini sangat relevan untuk skema data warehouse seperti snowflake dan starflake, di mana query sering kali melibatkan multiple dimension tables dan fact tables dengan relasi yang kompleks. Dengan menerapkan subquery yang efisien dan indexing yang tepat, sistem dapat melakukan filtering data pada level yang tepat sebelum melakukan join operations, sehingga mengurangi jumlah data yang perlu diproses.
+
+### **Rumus Subquery and Indexing**
+
+Persamaan subquery and indexing dapat dituliskan sebagai:
+
+    SQ(T, K, C) = Q_opt
+
+Dimana:
+
+- **SQ** = Proses subquery and indexing
+- **T** = Tabel target
+- **K** = Kolom yang diindeks
+- **C** = Kondisi subquery
+- **Q_opt** = Query yang dioptimasi
+
+### **Tahapan Implementasi Subquery and Indexing (Secara Teoritis)**
+
+1. **Identifikasi Query yang Dapat Dioptimasi:**
+
+   - Query yang melibatkan multiple table joins
+   - Query dengan filtering conditions yang kompleks
+   - Query yang menggunakan aggregate functions pada subquery
+
+2. **Analisis Struktur Subquery:**
+
+   - Evaluasi apakah subquery dapat dioptimasi dengan indexing
+   - Identifikasi kolom yang sering digunakan dalam subquery conditions
+   - Tentukan tipe subquery (correlated vs non-correlated)
+
+3. **Implementasi Indexing pada Subquery:**
+
+   - Buat index pada kolom yang digunakan dalam subquery WHERE clause
+   - Optimasi index untuk aggregate functions (COUNT, SUM, AVG)
+   - Pertimbangkan composite index untuk multiple conditions
+
+4. **Optimasi Subquery Structure:**
+
+   - Konversi correlated subquery menjadi non-correlated jika memungkinkan
+   - Gunakan EXISTS atau IN berdasarkan karakteristik data
+   - Pertimbangkan penggunaan JOIN sebagai alternatif subquery
+
+5. **Evaluasi Performa:**
+
+   - Bandingkan execution time sebelum dan sesudah optimasi
+   - Analisis query execution plan
+   - Monitor resource usage (CPU, memory, I/O)
+
+6. **Tahapan ini berlaku baik untuk model snowflake maupun starflake, dengan menyesuaikan kompleksitas relasi dan kebutuhan query pada masing-masing model.**
+
+Dengan menerapkan teori subquery and indexing ini, sistem basis data pada kedua model (snowflake dan starflake) dapat mencapai optimasi performa query yang maksimal, terutama pada operasi yang melibatkan multiple table joins dan filtering yang kompleks.
