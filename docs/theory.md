@@ -125,3 +125,92 @@ Dimana:
 6. **Tahapan ini berlaku baik untuk model snowflake maupun starflake, dengan menyesuaikan kompleksitas relasi dan kebutuhan query pada masing-masing model.**
 
 Dengan menerapkan teori subquery and indexing ini, sistem basis data pada kedua model (snowflake dan starflake) dapat mencapai optimasi performa query yang maksimal, terutama pada operasi yang melibatkan multiple table joins dan filtering yang kompleks.
+
+---
+
+# **Parallel Query Execution**
+
+## **Penjelasan Akademis**
+
+Parallel Query Execution adalah teknik optimasi yang memanfaatkan multiple CPU cores untuk mengeksekusi query secara bersamaan, sehingga dapat mengurangi waktu eksekusi secara signifikan. Teknik ini membagi query menjadi beberapa bagian yang dapat dieksekusi secara paralel oleh worker processes yang berbeda, kemudian menggabungkan hasilnya untuk menghasilkan output final.
+
+Parallel Query Execution sangat efektif untuk query yang melibatkan operasi scan, join, dan aggregate pada tabel dengan volume data besar. Pada data warehouse seperti snowflake dan starflake, teknik ini dapat memberikan peningkatan performa yang dramatis, terutama untuk query analitik yang kompleks dan resource-intensive.
+
+### **Rumus Parallel Query Execution**
+
+Persamaan parallel query execution dapat dituliskan sebagai:
+
+    PQ(Q, W, R) = Q_parallel
+
+Dimana:
+
+- **PQ** = Proses parallel query execution
+- **Q** = Query yang akan dieksekusi
+- **W** = Jumlah worker processes
+- **R** = Resource allocation (CPU, memory, I/O)
+- **Q_parallel** = Query yang dieksekusi secara paralel
+
+### **Rumus Perhitungan Speedup**
+
+Speedup yang diperoleh dari parallel execution dapat dihitung dengan:
+
+    S = T_sequential / T_parallel
+
+Dimana:
+
+- **S** = Speedup factor
+- **T_sequential** = Waktu eksekusi sequential
+- **T_parallel** = Waktu eksekusi parallel
+
+### **Rumus Efisiensi Parallel**
+
+Efisiensi parallel execution dapat dihitung dengan:
+
+    E = S / W
+
+Dimana:
+
+- **E** = Efisiensi parallel execution
+- **S** = Speedup factor
+- **W** = Jumlah worker processes
+
+### **Tahapan Implementasi Parallel Query Execution (Secara Teoritis)**
+
+1. **Identifikasi Query yang Dapat Diparallelkan:**
+
+   - Query dengan operasi scan yang besar
+   - Query dengan multiple table joins
+   - Query dengan aggregate functions (SUM, COUNT, AVG)
+   - Query yang tidak bergantung pada urutan eksekusi
+
+2. **Analisis Resource Availability:**
+
+   - Evaluasi jumlah CPU cores yang tersedia
+   - Analisis memory capacity untuk worker processes
+   - Identifikasi I/O bandwidth yang dapat dimanfaatkan
+   - Tentukan optimal number of workers
+
+3. **Implementasi Parallel Settings:**
+
+   - Set parameter parallel workers per gather
+   - Konfigurasi work memory per worker
+   - Tentukan parallel tuple cost dan setup cost
+   - Optimasi shared buffers dan effective cache size
+
+4. **Query Optimization untuk Parallel:**
+
+   - Struktur query yang mendukung parallel execution
+   - Index yang mendukung parallel scan
+   - Partition-aware parallel processing
+   - Minimasi data movement antar workers
+
+5. **Monitoring dan Tuning:**
+
+   - Monitor parallel worker utilization
+   - Analisis parallel execution plan
+   - Tune parameter berdasarkan workload
+   - Evaluasi scalability dengan berbagai jumlah workers
+
+6. **Tahapan ini berlaku baik untuk model snowflake maupun starflake, dengan menyesuaikan kompleksitas query dan resource availability pada masing-masing model.**
+
+Dengan menerapkan teori parallel query execution ini, sistem basis data pada kedua model (snowflake dan starflake) dapat mencapai peningkatan performa yang signifikan, terutama untuk query analitik yang kompleks dan resource-intensive pada data warehouse dengan volume data besar.
