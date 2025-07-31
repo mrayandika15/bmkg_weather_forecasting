@@ -412,12 +412,12 @@ JOIN forecasting.dim_subdistrict s ON w.subdistrict_id = s.subdistrict_id
 JOIN forecasting.dim_district d ON s.district_id = d.district_id
 JOIN forecasting.dim_city c ON d.city_id = c.city_id
 JOIN forecasting.dim_province p ON c.province_id = p.province_id
-WHERE w.subdistrict_id BETWEEN 1 AND 200 -- Partition pruning untuk subdistrict tertentu
+WHERE w.subdistrict_id BETWEEN 1 AND 200 -- Partition pruning aktif!
   AND EXISTS (
     SELECT 1
     FROM forecasting.dim_province dp
     WHERE dp.province_id = p.province_id
-    AND dp.province_name = 'Jawa Barat'
+      AND dp.province_name = 'Jawa Barat'
   )
   AND w.utc_datetime >= '2025-07-23'
   AND w.utc_datetime < '2025-07-27'
@@ -431,18 +431,18 @@ LIMIT [volume_data]; -- Parameter: 100, 1000, 10000, 100000, 150000
 
 **Perbandingan Waktu Eksekusi:**
 
-| Data Volume      | Sebelum Optimasi | Sesudah Optimasi | Improvement |
-| ---------------- | ---------------- | ---------------- | ----------- |
-| **100 Data**     | 7.376 ms         | 6.513 ms         | **-11.7%**  |
-| **1,000 Data**   | -                | -                | **-**       |
-| **10,000 Data**  | -                | -                | **-**       |
-| **100,000 Data** | -                | -                | **-**       |
-| **150,000 Data** | -                | -                | **-**       |
+| Data Volume      | Sequential Execution | Parallel Execution | Improvement |
+| ---------------- | -------------------- | ------------------ | ----------- |
+| **100 Data**     | 6.513 ms             | 5.347 ms           | **-17.9%**  |
+| **1,000 Data**   | -                    | -                  | **-**       |
+| **10,000 Data**  | -                    | -                  | **-**       |
+| **100,000 Data** | -                    | -                  | **-**       |
+| **150,000 Data** | -                    | -                  | **-**       |
 
 **Kesimpulan Optimasi:**
 
-- **Planning time berkurang 6.095ms → 6.095ms** untuk 100 data
-- **Execution time berkurang 7.376ms → 6.513ms** untuk 100 data
+- **Planning time berkurang 6.095ms → 3.616ms** untuk 100 data
+- **Execution time berkurang 6.513ms → 5.347ms** untuk 100 data
 - **Partition pruning** mengurangi data yang diproses secara signifikan
 - **EXISTS subquery** memberikan performa optimal untuk dataset besar
 - **Snowflake joins** dioptimasi dengan indexing pada dimension tables
@@ -644,12 +644,12 @@ JOIN forecasting.dim_subdistrict s ON w.subdistrict_id = s.subdistrict_id
 JOIN forecasting.dim_district d ON s.district_id = d.district_id
 JOIN forecasting.dim_city c ON d.city_id = c.city_id
 JOIN forecasting.dim_province p ON c.province_id = p.province_id
-WHERE w.subdistrict_id BETWEEN 1 AND 200 -- Partition pruning untuk subdistrict tertentu
+WHERE w.subdistrict_id BETWEEN 1 AND 200 -- Partition pruning aktif!
   AND EXISTS (
     SELECT 1
     FROM forecasting.dim_province dp
     WHERE dp.province_id = p.province_id
-    AND dp.province_name = 'Jawa Barat'
+      AND dp.province_name = 'Jawa Barat'
   )
   AND w.utc_datetime >= '2025-07-23'
   AND w.utc_datetime < '2025-07-27'
@@ -846,8 +846,8 @@ SET parallel_tuple_cost = 0.01;
 SET parallel_setup_cost = 100.0;
 SET work_mem = '512MB';
 SET effective_cache_size = '2GB';
-SET min_parallel_table_scan_size = 512;
-SET min_parallel_index_scan_size = 32;
+SET min_parallel_table_scan_size = 512;   -- 4MB
+SET min_parallel_index_scan_size = 32;    -- 256KB
 
 -- Konfigurasi Indexing untuk Subquery pada Snowflake Schema
 CREATE INDEX IF NOT EXISTS idx_fact_weather_forecast_subdistrict_datetime_temp
@@ -895,7 +895,7 @@ FROM (
         w.precipitation_probability,
         w.visibility_meters
     FROM forecasting.fact_weather_forecast w
-    WHERE w.subdistrict_id BETWEEN 1 AND 200 -- Partition pruning untuk subdistrict tertentu
+    WHERE w.subdistrict_id BETWEEN 1 AND 200 -- Partition pruning aktif!
       AND w.utc_datetime >= '2025-07-23'
       AND w.utc_datetime < '2025-07-27'
       AND w.temperature BETWEEN 15 AND 35
@@ -916,7 +916,7 @@ WHERE p.province_name = 'Jawa Barat';
 
 | Data Volume      | Sequential | Subquery Only | Parallel Only | Combined   | Total Improvement |
 | ---------------- | ---------- | ------------- | ------------- | ---------- | ----------------- |
-| **100 Data**     | 7.376 ms   | 6.513 ms      | 5.347 ms      | 19.405 ms  | **+163.0%**       |
+| **100 Data**     | 6.513 ms   | 5.347 ms      | 5.347 ms      | 19.405 ms  | **+163.0%**       |
 | **1,000 Data**   | -          | -             | -             | 186.123 ms | **-**             |
 | **10,000 Data**  | -          | -             | -             | 44.296 ms  | **-**             |
 | **100,000 Data** | -          | -             | -             | -          | **-**             |
@@ -971,29 +971,29 @@ ETR_total = 1 - ((1 - ETR_subquery) * (1 - ETR_parallel))
 
 **Dimana:**
 
-- **ETR_total** = Total Execution Time Reduction (variabel tergantung volume data)
-- **ETR_subquery** = Execution Time Reduction dari subquery indexing (10-15%)
-- **ETR_parallel** = Execution Time Reduction dari parallel execution (15-25%)
+- **ETR_total** = Total Execution Time Reduction (variable dependent on data volume)
+- **ETR_subquery** = Execution Time Reduction from subquery indexing (10-15%)
+- **ETR_parallel** = Execution Time Reduction from parallel execution (15-25%)
 
 **Optimasi Kombinasi:**
 
 - **Partition Pruning** + **Parallel Execution** + **Subquery Indexing** + **Composite Indexing**
-- **Multiple EXISTS subqueries** untuk complex filtering pada snowflake schema
-- **Parallel scan** pada partitioned table dengan index-aware processing (4 workers)
-- **Parallel join** untuk multiple dimension table joins (province → city → district → subdistrict)
-- **Nested Loop** dengan index scan untuk optimal join performance
-- **Gather operation** untuk parallel result aggregation
+- **Multiple EXISTS subqueries** for complex filtering in snowflake schema
+- **Parallel scan** on partitioned table with index-aware processing (4 workers)
+- **Parallel join** for multiple dimension table joins (province → city → district → subdistrict)
+- **Nested Loop** with index scan for optimal join performance
+- **Gather operation** for parallel result aggregation
 - **Threshold yang dioptimasi** (4MB untuk tabel, 256KB untuk index) untuk dataset kecil
 
 **Performa Query yang Diharapkan:**
 
-- **Total improvement 25-40%** untuk berbagai volume data
-- **Planning time 5-10ms** dengan query plan optimization
-- **Execution time reduction 25-40%** dengan kombinasi teknik
-- **Optimal resource utilization** dengan CPU, memory, dan I/O yang seimbang
-- **Scalable performance** untuk dataset 100-150,000 rows
-- **Snowflake schema optimization** dengan multiple dimension table joins
-- **Parallel execution yang optimal** dengan 4 workers dan threshold yang dioptimasi
+- **Total improvement 25-40%** for various data volumes
+- **Planning time 5-10ms** with query plan optimization
+- **Execution time reduction 25-40%** with combined techniques
+- **Optimal resource utilization** with CPU, memory, and I/O balanced
+- **Scalable performance** for dataset 100-150,000 rows
+- **Snowflake schema optimization** with multiple dimension table joins
+- **Optimal parallel execution** with 4 workers and optimized threshold
 
 ---
 
